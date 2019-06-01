@@ -1,6 +1,4 @@
-/*
- * Create a list that holds all of your cards
- */
+// Create a list that holds all of your cards
 let card = document.getElementsByClassName('card');
 let cards = [...card];
 
@@ -30,38 +28,62 @@ function shuffle(array) {
     return array;
 }
 
-//add opened cards 
+
+// Disable cards
+function disable() {    
+    cards.forEach(function(element) {
+        element.classList.add('disabled');
+    });
+    console.log(cards);
+}
+
+// Enable cards except the matchs
+function enable() {
+    cards.forEach(function (element) {
+        if (!element.classList.contains("match")) {
+            element.classList.remove('disabled');
+        }
+    });
+}
+
+// Add opened cards 
 function move(card) {
-    //start timer after the first opened card
+    // Disable current opened card
+    card.classList.add('disabled');
+    // Start timer after the first opened card
     if (firstMove) {
-        Timer();
+        timer();
         firstMove = false;
     }
     openCards.push(card);
     if (openCards.length === 2) {
+        // Disable all the cards        
         increaseCounter();
         if (openCards[0].children[0].className === openCards[1].children[0].className) {           
             match();
+           
         } else {
             unmatch();           
-        }
+        }        
     }
 }
 
-//Display time
+// Display time
 function setTime() {
     document.querySelector('.timer').innerHTML = minute + ' : ' + second;
 }
-//Initialize timer
+
+// Initialize timer
 function resetTimer() {
     if (interval !== null) {
         clearInterval(interval);
     }
-    //Clean actuel counters
+    // Clean actuel counters
     second = 0; minute = 0; heure = 0;
     setTime();
 }
 
+// Show modal after sucess
 function congrats() {
     let time = document.querySelector('.timer').innerHTML;
     resetTimer();
@@ -72,7 +94,7 @@ function congrats() {
 
 }
 
-//Action for a match
+// Action for a match
 function match() {
     openCards[0].classList.add('match');
     openCards[1].classList.add('match');
@@ -80,44 +102,28 @@ function match() {
     openCards[1].classList.remove('show', 'open');
     openCards = [];
     matchCards++;
-    console.log(matchCards);
     if (matchCards === maxMatchs) {
         congrats();
     }
 }
 
-//Actions for when cards don't match
+// Actions for when cards don't match
 function unmatch() {
+    disable();
     setTimeout(function () {
         openCards[0].classList.remove('show', 'open', 'unmatch');
         openCards[1].classList.remove('show', 'open', 'unmatch');
         openCards = [];
-    }, 1000);
-}
-
-//disable cards temporarily
-function disable() {
-    Array.prototype.filter.call(cards, function (card) {
-        card.classList.add('disabled');
-    });
-}
-
-//enable cards and disable match cards
-function enable() {
-    Array.prototype.filter.call(cards, function (card) {
-        card.classList.remove('disabled');
-        for (var i = 0; i < matchCard.length; i++) {
-            matchCard[i].classList.add('disabled');
-        }
-    });
+        enable();
+    }, 1200);
 }
 
 function increaseCounter() {
-    //increment and display moves
+    // Increment and display moves
     moves++;
     document.querySelector('.moves').innerHTML = moves;    
 
-    // set rates - stars
+    // Set rates - stars
     if (moves > 8 && moves < 12) {
         for (i = 0; i < 3; i++) {
             if (i > 1) {
@@ -135,11 +141,11 @@ function increaseCounter() {
 }
 
 function setMoves() {
-    //display moves
+    // Display moves
     document.querySelector('.moves').innerHTML = moves;
 }
 
-function Timer() {
+function timer() {
     interval = setInterval(function () {
         second++;
         if (second === 60) {
@@ -156,7 +162,7 @@ function Timer() {
 
 function newGame() {
     const deck = document.querySelector('.deck');
-    // shuffle deck
+    // Shuffle deck
     cards = shuffle(cards);
     // remove all existing classes from each card
     for (let i = 0; i < cards.length; i++) {
@@ -166,7 +172,7 @@ function newGame() {
         });
         cards[i].classList.remove('show', 'open', 'match', 'disabled');
     }
-    // reset moves
+    // Reset moves
     moves = 0;
     setMoves();
     openCards = [];
@@ -175,12 +181,12 @@ function newGame() {
     for (let i = 0; i < stars.length; i++) {
         stars[i].style.color = "#FFD700";
         stars[i].style.visibility = "visible";
-    };
+    }
 }
 
 function initializeGame() {
-    //set action for clicked cards
-    //change status and trigger move
+    // Set action for clicked cards
+    // Change status and trigger move
     let status = function () {
         this.classList.toggle('open');
         this.classList.toggle('show');
@@ -194,7 +200,7 @@ function initializeGame() {
     newGame();
 }
 
-//Steps to clean information for the previous game
+// Steps to clean information for the previous game
 function resetGame() {    
     newGame();
     resetTimer();
