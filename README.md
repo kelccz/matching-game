@@ -18,6 +18,8 @@ The object of the game is to turn over pairs of matching cards using less moves 
 
 ## Instructions
 
+The game can be acceded by the Index.html page.
+ 
 To get started, click on two cards to reveal its images. 
 
 If the cards match, they will be keep opened.
@@ -26,6 +28,8 @@ Keep revealing cards until the last pair.
 
 
 ## Building
+
+Game build using Javascript to manipulate the DOM.
 
 The deck cards array was created using the html sctructure.
 
