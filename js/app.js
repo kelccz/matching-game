@@ -1,4 +1,3 @@
-//V2
 // Create a list that holds all of your cards
 let card = document.getElementsByClassName('card');
 let cards = [...card];
@@ -34,8 +33,7 @@ function shuffle(array) {
 function disable() {    
     cards.forEach(function(element) {
         element.classList.add('disabled');
-    });
-    console.log(cards);
+    });  
 }
 
 // Enable cards except the matchs
@@ -50,7 +48,7 @@ function enable() {
 // Add opened cards 
 function move(card) {
     // Disable current opened card
-    //card.classList.add('disabled');
+    card.classList.add('disabled');
     // Start timer after the first opened card
     if (firstMove) {
         timer();

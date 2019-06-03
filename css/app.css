@@ -25,7 +25,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: column;    
 }
 
 h1 {
@@ -52,6 +52,13 @@ h1 {
     margin: 0 0 3em;
 }
 
+@media screen and (max-width: 768px) {
+    .deck {
+        max-width: 100vw;
+    }
+}
+
+
 .deck .card {
     height: 125px;
     width: 125px;
@@ -64,6 +71,7 @@ h1 {
     justify-content: center;
     align-items: center;
     box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+    margin-bottom: 10px;
 }
 
 .deck .card.open {
@@ -76,19 +84,24 @@ h1 {
     font-size: 33px;
 }
 
+.deck .card.disabled {
+    pointer-events: none;
+}
+
 .deck .card.match {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
 }
-
 /*
  * Styles for the Score Panel
  */
 
 .score-panel {
     text-align: left;
-    width: 345px;
+    min-width: 345px;
+    max-width: 660px;
+    width: 100%;
     margin-bottom: 10px;
 }
 
@@ -105,7 +118,6 @@ h1 {
 }
 
 .score-panel .restart {
-    float: right;
     cursor: pointer;
 }
 
