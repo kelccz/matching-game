@@ -49,7 +49,7 @@ function enable() {
 // Add opened cards 
 function move(card) {
     // Disable current opened card
-    card.classList.add('disabled');
+    //card.classList.add('disabled');
     // Start timer after the first opened card
     if (firstMove) {
         timer();
